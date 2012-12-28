@@ -4,13 +4,13 @@
     %small= "(#{@movie.release_date.year})"
 
 .row
-  .span4
-    .movie-poster{style: "text-align: center"}
+  .span3
+    .movie-poster
       - if @movie.poster_file_name.nil?
         No image
       - else
         = image_tag @movie.poster.url(:medium), class: 'img-polaroid'
-  .span8
+  .span9
     - unless @checkin.present?
       = link_to "Watch this movie", movie_checkins_path(@movie), method: :post
     - else
@@ -18,3 +18,11 @@
     %hr
     %p
       = @movie.synopsis
+- if user_signed_in?
+  .row
+    %blockquote#recommended
+      %h4 You may also like    
+      - User.recommended_movies(current_user).each do |movie|
+        - m = Movie.find(movie[0])
+        = link_to movie_path(movie[0]), title: m.title do
+          - image_tag m.poster.url(:thumb), class: 'img-polaroid'

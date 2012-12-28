@@ -1,6 +1,10 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.search(params[:search], params[:type])
+    if params[:tag]
+      @movies = Movie.tagged_with(params[:tag])
+    else
+      @movies = Movie.search(params[:search], params[:type])
+    end
   end
 
   def show

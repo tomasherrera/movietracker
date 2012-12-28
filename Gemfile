@@ -14,6 +14,7 @@ end
 gem 'jquery-rails', '2.1.4'
 gem 'devise', '2.1.2'
 gem 'haml-rails', '0.3.5'
+gem 'acts-as-taggable-on', '~> 2.3.1'
 
 # NOTE: The following gems contain generators useful in development
 # environment too!

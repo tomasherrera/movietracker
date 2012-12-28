@@ -1,5 +1,6 @@
 class Movie < ActiveRecord::Base
-  attr_accessible :title, :synopsis, :release_date, :poster
+  attr_accessible :title, :synopsis, :release_date, :poster, :tag_list
+  acts_as_taggable
   validates :title, presence: true
   validates :release_date, presence: true
 

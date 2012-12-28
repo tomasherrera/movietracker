@@ -4,4 +4,8 @@
   = select_tag :type, options_for_select(Movie::SEARCH_TYPES, selected: params[:type])
   = submit_tag "Search", name: nil, class: "btn"
 %ul.media-list
-  = render @movies
+  %small
+    .well#tag_cloud
+      - tag_cloud Movie.tag_counts, %w[s m l] do |tag, css_class|
+        = link_to tag.name, tag_path(tag.name), class: css_class
+    = render @movies
