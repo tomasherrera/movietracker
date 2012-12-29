@@ -9,6 +9,7 @@ ActiveAdmin.register Movie do
       #f.label :uri_trailer
       f.input :uri_trailer, hint: "Video identifier found in the URL of Youtube.<br>
                                   for example http://www.youtube.com/watch?v=<span style=\"background:#C6E2FF;\">0uIWGOKW5OM</span>".html_safe
+      f.input :tag_list
     end
     f.buttons
   end
@@ -16,6 +17,7 @@ ActiveAdmin.register Movie do
     column :title
     column :synopsis, as: :text
     column :release_date
+    column :tag_list
     column "Poster" do |movie| 
         link_to image_tag("/assets/posters/#{movie.id}/medium/#{movie.poster_file_name}",
                            :alt => "poster"), admin_movie_path(movie)

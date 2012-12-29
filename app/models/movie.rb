@@ -1,5 +1,6 @@
 class Movie < ActiveRecord::Base
-  attr_accessible :title, :synopsis, :release_date, :poster, :uri_trailer
+  attr_accessible :title, :synopsis, :release_date, :poster, :uri_trailer, :tag_list
+  acts_as_taggable
   validates :title, presence: true
   validates :release_date, presence: true
 
@@ -8,10 +9,12 @@ class Movie < ActiveRecord::Base
 
 
   has_many :checkins
+  has_many :views
   has_many :users, through: :checkins
 
   has_many :ratings
   has_many :raters, through: :ratings, source: :users
+  has_many :viewers, through: :views, source: :user
 
   has_attached_file :poster,
             :styles => { :medium => "256x320>", :thumb => "60x80>" },

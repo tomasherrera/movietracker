@@ -3,3 +3,5 @@
     = image_tag movie.poster.url(:thumb), class: 'media-object img-polaroid pull-left'
   .media-body
     %h4= link_to movie.title, movie_path(movie)
+    %small Tags: #{raw movie.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')}
+    

@@ -60,6 +60,12 @@ describe MoviesController, "Actions" do
         assigns(:checkin).should_not be_nil
       end
 
+      it "should load a view for the movie if it exists" do
+        FactoryGirl.create(:view, movie_id: @movie.id, user: @user)
+        get :show, id: @movie.id.to_param
+        assigns(:view).should_not be_nil
+      end
+
     end
 
   end

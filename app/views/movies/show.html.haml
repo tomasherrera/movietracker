@@ -4,17 +4,23 @@
     %small= "(#{@movie.release_date.year})"
 
 .row
-  .span4
-    .movie-poster{style: "text-align: center"}
+  .span3
+    .movie-poster
       - if @movie.poster_file_name.nil?
         No image
       - else
         = image_tag @movie.poster.url(:medium), class: 'img-polaroid'
-  .span8
+  .span9
     - unless @checkin.present?
       = link_to "Add to Watchlist", movie_checkins_path(@movie), method: :post, class: "btn btn-info"
     - else
       = link_to "Remove from Watchlist", movie_checkin_path(@movie, @checkin), method: :delete, class: 'btn'
+    - unless @view.present?
+      = link_to movie_views_path(@movie), method: :post, class: "btn btn-success", title: "Mark as Watched" do
+        %i.icon-eye-open.icon-white
+    - else
+      = link_to movie_view_path(@movie.id, @view), method: :delete, class: 'btn btn-danger', title: "Mark as Unwatched" do
+        %i.icon-eye-close.icon-white
     %span.label.label-success= @movie.average_rating
     = render 'ratings/form'
     %hr
@@ -24,3 +30,10 @@
       -unless @movie.uri_trailer.nil?
         %h3 Trailer
         %iframe{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "http://www.youtube.com/embed/#{@movie.uri_trailer}?rel=0", :width => "560"}
+.row
+  .well
+    %h4 You may also like...
+    - if signed_in?
+      - User.recommended_movies(current_user).each do |rec_movie|
+        = link_to movie_path(rec_movie.id) do 
+          = image_tag rec_movie.poster.url(:thumb), class: 'img-polaroid', title: rec_movie.title 

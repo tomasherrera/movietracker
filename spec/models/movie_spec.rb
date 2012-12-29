@@ -5,6 +5,7 @@ describe Movie, "Relations" do
   it { should have_many(:users).through(:checkins) }
   it { should have_many(:ratings) }
   it { should have_many(:raters).through(:ratings) }
+  it { should have_many(:ratings) }  
 end
 
 describe Movie, "Validations" do

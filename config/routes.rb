@@ -8,6 +8,7 @@ Movietracker::Application.routes.draw do
 
   resources :movies, only: [:index, :show] do
     resources :checkins, only: [:create, :destroy]
+    resources :views, only: [:create, :destroy]
     resources :ratings, only: [:create, :update]
   end
 
@@ -17,4 +18,6 @@ Movietracker::Application.routes.draw do
   root to: "movies#index"
 
   get 'users', to: 'users#index', as: :users
+  get 'watchlist', to: 'user_movies#index', as: :watchlist
+  get 'tags/:tag', to: 'movies#index', as: :tag
 end
