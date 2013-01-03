@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   has_many :movies, through: :checkins
 
   has_many :ratings
-  has_many :rated_movies, through: :ratings, source: :movies
+
+  has_many :rated_movies, through: :ratings, source: :movie
   has_many :viewed_movies, through: :views, source: :movie
 
   def self.recommended_movies user
@@ -19,4 +20,5 @@ class User < ActiveRecord::Base
     # sorting by rating is missing due to Edgar's changes hasn't been merged yet
     recommended_movies.take(5)
   end
+
 end
