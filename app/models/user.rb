@@ -14,11 +14,11 @@ class User < ActiveRecord::Base
   has_many :viewed_movies, through: :views, source: :movie
 
   def self.recommended_movies user
-    recommended_movies = []
-    user.viewed_movies.inject([]){|a, element| recommended_movies.concat(element.find_related_tags)}
+    recommended_movies = user.viewed_movies.inject([]) do |movies, element| 
+      movies.concat(element.find_related_tags)
+    end
     recommended_movies -= user.viewed_movies 
-    # sorting by rating is missing due to Edgar's changes hasn't been merged yet
-    recommended_movies.take(5)
+    recommended_movies.take(5).sort{|x,y| y.average_rating <=> x.average_rating }
   end
 
 end

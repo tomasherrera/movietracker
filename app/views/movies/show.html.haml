@@ -34,6 +34,10 @@
   .well
     %h4 You may also like...
     - if signed_in?
-      - User.recommended_movies(current_user).each do |rec_movie|
-        = link_to movie_path(rec_movie.id) do 
-          = image_tag rec_movie.poster.url(:thumb), class: 'img-polaroid', title: rec_movie.title 
+      %ul.inline
+        - User.recommended_movies(current_user).each do |rec_movie|
+          %li{style: "text-align: center"}
+            = link_to movie_path(rec_movie.id) do 
+              = image_tag rec_movie.poster.url(:thumb), class: 'img-polaroid', title: rec_movie.title
+            %br
+            %span.label.label-success= rec_movie.average_rating

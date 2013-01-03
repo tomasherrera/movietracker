@@ -50,10 +50,11 @@ describe ViewsController, "Actions" do
   end
 
   describe "as a visitor" do
-
-    it "should redirect to the log in page" do
-      post :create, movie_id: @movie.to_param
-      should redirect_to(new_user_session_path)
+    describe "on DELETE to #destroy" do
+      it "should redirect to the log in page" do
+        post :create, movie_id: @movie.to_param
+        should redirect_to(new_user_session_path)
+      end
     end
 
     describe "on DELETE to #destroy" do
