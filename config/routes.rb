@@ -18,6 +18,5 @@ Movietracker::Application.routes.draw do
   root to: "movies#index"
 
   get 'users', to: 'users#index', as: :users
-  get 'watchlist', to: 'user_movies#index', as: :watchlist
   get 'tags/:tag', to: 'movies#index', as: :tag
 end

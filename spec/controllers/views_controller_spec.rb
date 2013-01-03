@@ -14,13 +14,13 @@ describe ViewsController, "Actions" do
   render_views
 
   before do
+    @user = FactoryGirl.create(:user)
     @movie = FactoryGirl.create(:movie)
   end
 
   describe "as an authenticated user" do
 
-    before do
-      @user = FactoryGirl.create(:user)
+    before do     
       sign_in :user, @user
     end
 
@@ -54,6 +54,14 @@ describe ViewsController, "Actions" do
     it "should redirect to the log in page" do
       post :create, movie_id: @movie.to_param
       should redirect_to(new_user_session_path)
+    end
+
+    describe "on DELETE to #destroy" do
+      it "should redirect to the log in page" do
+        @view = FactoryGirl.create(:view, :user => @user, :movie=> @movie)
+        delete :destroy, movie_id: @movie.to_param, id: @view.to_param
+        should redirect_to(new_user_session_path)
+      end
     end
 
   end

@@ -2,11 +2,7 @@
 = form_tag movies_path, method: :get, class: 'form-search' do
   = text_field_tag :search, params[:search], class: 'search-query input-medium'
   = select_tag :type, options_for_select(Movie::SEARCH_TYPES, selected: params[:type])
-  = submit_tag "Search", name: nil, class: "btn"
-.well
-  #tag_cloud
-    - tag_cloud Movie.tag_counts, %w[s m l] do |tag, css_class|
-      = link_to tag.name, tag_path(tag.name), class: css_class
+  = submit_tag "Search", name: nil, class: "btn" 
 %ul.media-list
   %small
     .well#tag_cloud

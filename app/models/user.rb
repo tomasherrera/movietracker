@@ -14,9 +14,8 @@ class User < ActiveRecord::Base
 
   def self.recommended_movies user
     recommended_movies = []
-    user.viewed_movies.each do |viewed_movie|
-      recommended_movies.concat(viewed_movie.find_related_tags)
-    end
+    user.viewed_movies.inject([]){|a, element| recommended_movies.concat(element.find_related_tags)}
+    recommended_movies -= user.viewed_movies 
     # sorting by rating is missing due to Edgar's changes hasn't been merged yet
     recommended_movies.take(5)
   end
